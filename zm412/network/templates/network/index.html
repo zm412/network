@@ -1,0 +1,57 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+
+    {% csrf_token %}
+      <h5 id='message' class='lt-algn'></h5>
+      <div id='add_new' class='lt-algn'>
+        <h3 class='lt-algn'>Add new post</h3>
+
+          <form class="row " data-postid='0' id='form_add'>
+                  <div class="form-floating col-sm-12">
+                    <div class="col-sm-12 col-md-5 add_f">
+                      <input name='title' class="form-control" placeholder="Posts title" id="post_title" >
+                    </div>
+                    <div class="col-sm-12 col-md-5 add_f">
+                      <textarea name='body'class="form-control" placeholder="New post" id="new_post_text" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="col-auto">
+                      <button  id='btn_save_new' class="btn btn-secondary">Add post</button>
+                    </div>
+                  </div>
+            </form>
+    </div>
+    <div id='profile' class='lt-algn prof_style'>
+      <p>Username: <a href='#' id='username_info'></a></p>
+      <p>Followers: <a href='#' id='followers_list'></a></p>
+      <p>Following: <a href='#' id='followings_list'></a></p>
+      <button id='follow_butt' style='display:none' class='btn btn-outline-secondary'></button>
+
+    </div>
+    <div id='users_list'></div>
+    <div id='all_posts' data-userid="{{ user.id }}"></div>
+    <div id='profile_posts' data-userid="{{ user.id }}"></div>
+    <div id='followings_posts_list' data-userid="{{ user.id }}"></div>
+    <div id='posts_list' data-userid="{{ user.id }}"></div>
+    <div id='listing'>
+      <p>
+      <h4  class='lt-algn'>Posts of <span id='user_span'></span>: </h4>
+      </p>
+      <div id='list_of_posts'></div>
+      <div id='pagination_block' style='display: none' class='lt-algn'>
+        <div class='d-grid gap-2 col-6 mx-auto'>
+            <button id='button_prev' type='button' class='btn btn-outline-primary'>Prev</button>
+          <span id='page_num'></span>
+            <button id='button_next' type='button' class='btn btn-outline-primary'>Next</button>
+        </div>
+      </div>
+    </div>
+    {% endif %} 
+
+  {% block script %}
+      <script src="{% static 'network/index.js' %}?{% now "U" %}"></script>
+  {% endblock %}
+{% endblock %}
+
